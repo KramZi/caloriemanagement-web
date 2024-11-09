@@ -1,0 +1,32 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Daily Norm";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/norm.css" />
+</head>
+<body>
+    <div class="main-content">
+        @if (!User.Identity.IsAuthenticated) {
+            <text>Please log in to be able to manage your norm</text>
+        } else {
+            <text>Your current daily norm is @Model.DailyCalories calories</text>
+            @using (Html.BeginForm("Index", "Norm", FormMethod.Post)) {
+                <div style="display:flex;align-items: center;">
+                    Change the norm:
+                    <input type="number" id="dailyCalories" name="dailyCalories" autocomplete="off" data-input-field="" step="any" min="0" max="99999999" value="" class="uc_calculator size_5">
+                    <button type="submit" class="button-22" role="button">Submit</button>
+                </div>
+            }
+            <br>
+            <text>You can calculate your daily norm <a href="/calculator">here</a></text>
+        }
+    </div>
+</body>
+</html>

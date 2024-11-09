@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Calendar";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/calendar.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $('#datepicker').datepicker({
+                dateFormat: "yymmdd",
+                minDate: new Date(1990, 1 - 1, 1), 
+                maxDate: new Date(2029, 12 - 1 , 31),
+                onSelect: function(dateText) {
+                    $(this).change();
+                }
+            }).change(function(){
+                window.location.href = "/calendar/day/" + this.value;
+            });
+        });
+    </script>
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated) {
+        <h4>Please log in to be able to manage your calories</h4>
+    } else {
+        <div id="datepicker" class="calendar"></div>
+    }
+</body>
+</html>

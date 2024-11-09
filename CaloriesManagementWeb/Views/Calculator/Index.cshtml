@@ -1,0 +1,128 @@
+﻿﻿@using CaloriesManagementWeb.ViewModel
+@model CalculatorViewModel
+
+@{
+	ViewData["Title"] = "Calculator";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+			<div class="container-fluid">
+				<div class="main-content">
+			<h4>Calculate your daily norm of calories:</h4>
+			@using (Html.BeginForm("Index", "Calculator", FormMethod.Post))
+			{
+				<div>
+					Age:
+					<input type="number" id="age" name="age" autocomplete="off" data-input-field="" step="any" min="0" max="99999999" value="@Model.Age" class="uc_calculator size_5">
+				</div>
+				@if(Model.PostMethod == true) {
+					@if (Model.Age < 18 || Model.Age > 80) {
+						<div style="color:#cf3729;">Age should be between 18 and 80</div>
+						Model.TDEE = null;
+					}
+					@if (Model.Age is null) {
+						<div style="color:#cf3729;">Age is required</div>
+					}
+				}
+				<div class="radio-gender">
+					Gender:
+					<div>
+						<label for="male">
+							male
+							<input type="radio" name="gender" id="male" value="male">
+							<div class="control__indicator"></div>
+						</label>
+					</div>
+					<div>
+						<label for="female">
+							female
+							<input type="radio" name="gender" id="female" value="female">
+							<div class="control__indicator"></div>
+						</label>
+					</div>
+				</div>
+				@if (Model.PostMethod == true) {
+					@if (Model.Gender is null) {
+						<div style="color:#cf3729;">Gender is required</div>
+					}
+				}
+				<div>
+					Height:
+					<input type="number" id="height" name="height" autocomplete="off" data-input-field="" step="any" min="0" max="99999999" value="@Model.Height" class="uc_calculator size_5">
+					<select class="height_unit" id="height_unit" name="height_unit" autocomplete="off" aria-label="Height Units" class="ml1">
+						<option value="centimeter" selected="selected">cm</option>
+						<option value="inch">in</option>
+					</select>
+				</div>
+				@if (Model.PostMethod == true) {
+					@if (Model.Height <= 0) {
+						<div style="color:#cf3729;">Height should be positive</div>
+						Model.TDEE = null;
+					}
+					@if (Model.Height is null) {
+						<div style="color:#cf3729;">Height is required</div>
+					}
+				}
+				<div>
+					Weight:
+					<input type="number" id="weight" name="weight" autocomplete="off" data-input-field="" step="any" min="0" max="99999999" value="@Model.Weight" class="uc_calculator size_5">
+					<select class="weight_unit" id="weight_unit" name="weight_unit" autocomplete="off" aria-label="Weight Units" class="ml1">
+						<option value="kilogram" selected="selected">kg</option>
+						<option value="pound">lb</option>
+						<option value="stone">st</option>
+					</select>
+				</div>
+				@if (Model.PostMethod == true) {
+					@if (Model.Weight <= 0) {
+						<div style="color:#cf3729;">Weight should be positive</div>
+						Model.TDEE = null;
+					}
+					@if (Model.Weight is null) {
+						<div style="color:#cf3729;">Weight is required</div>
+					}
+				}
+				<div>
+					Activity:
+					<select class="activity" id="activity" name="activity" autocomplete="off">
+						<option value="1.2" selected="selected">little to no exercise</option>
+						<option value="1.375">light exercise 1-3 times per week</option>
+						<option value="1.55">moderate exercise 3-5 times per week</option>
+						<option value="1.725">heavy physical exercise 5-6 times per week</option>
+						<option value="1.9">heavy physical exercise 6-7 times per week</option>
+					</select>
+				</div>
+				<button type="submit" class="button-22" role="button">Calculate</button>
+			}
+			@if (Model.TDEE is not null) {
+				<h4>Estimated norm: @Model.TDEE calories</h4>
+			} else {
+				<br>
+			}
+			<br>
+			@if (User.Identity.IsAuthenticated) {
+				<text>Your current daily norm is @Model.DailyCalories calories.
+					You can change the norm <a href = "/norm">here</a></text>
+			} else {
+				<text>You can change your daily norm <a href="/norm">here</a></text>
+			}
+			
+			<script type="text/javascript">
+				$(document).ready(function () {
+					$('#height_unit').val('@Model.Height_Unit'||'centimeter');
+					$('#weight_unit').val('@Model.Weight_Unit'||'kilogram');
+					$('#activity').val('@Model.Activity'||'1.2');
+					$('#@Model.Gender').prop('checked',true);
+				});
+			</script>
+				</div>
+			</div>
+</body>
+</html>
+
+
+

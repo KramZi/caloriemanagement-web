@@ -1,0 +1,57 @@
+﻿
+.main-content {
+    font-family: Roboto;
+    font-size: 16px;
+    position: fixed;
+    left: 270px;
+}
+
+input[type="number"] {
+    box-shadow: none;
+    border: 1px solid #DEDEDE;
+    border-radius: 3px;
+    min-height: 4rem;
+    font-weight: 400;
+    margin: 4px;
+    padding: .3rem 0 .3rem .5rem;
+    width: 130px;
+    margin-top: .3rem;
+    display: inline-block;
+}
+
+input[type=number]:focus {
+    outline: 2px solid #555;
+}
+
+
+.button-22 {
+    display: inline-block;
+    align-items: center;
+    appearance: button;
+    background-color: #0276FF;
+    border-radius: 4px;
+    border-style: none;
+    box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 100%;
+    line-height: 1.15;
+    margin-top: 5px;
+    padding: 10px 21px;
+    text-align: center;
+    text-transform: none;
+    transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 5px;
+}
+
+    .button-22:active {
+        background-color: #006AE8;
+    }
+
+    .button-22:hover {
+        background-color: #1C84FF;
+    }

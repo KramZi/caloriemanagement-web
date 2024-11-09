@@ -1,0 +1,17 @@
+﻿.main-content {
+    font-family: Roboto;
+    font-size: 16px;
+    position: fixed;
+    left: 270px;
+}
+
+.header {
+    position: relative;
+    left: 300px;
+}
+
+.content {
+    font-size: 20px;
+    position: relative;
+    left: 10px;
+}

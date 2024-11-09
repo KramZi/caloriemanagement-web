@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+}
+
+<style>
+	@@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500");
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Calories Management</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/CaloriesManagementWeb.styles.css" asp-append-version="true" />
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+</head>
+<body>
+	<div id="viewport">
+		<div id="sidebar">
+			<header>
+				<a href="/">Home</a>
+			</header>
+			<ul class="nav">
+				<li>
+					<a href="" id="date">
+						<i class="zmdi zmdi-chart"></i> Today's tracking
+					</a>
+				</li>
+				<li>
+					<a href="/calendar">
+						<i class="zmdi zmdi-calendar"></i> Calendar
+					</a>
+				</li>
+				<li>
+					<a href="/calculator">
+						<i class="zmdi zmdi-ruler"></i> Daily norm calculator
+					</a>
+				</li>
+				<li>
+					<a href="/norm">
+						<i class="zmdi zmdi-assignment"></i> Change norm
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="content">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					@if (SignInManager.IsSignedIn(User)) {
+						<div>
+							<a asp-area="" asp-controller="Account" asp-action="Logout">
+								<button class="button-7" role="button">Logout</button>
+							</a>
+						</div>
+					} else {
+						<div>
+							<a href="/account/login">
+								<button class="button-8" role="button">Login</button>
+							</a>
+						</div>
+						<div>
+							<a href="/account/register">
+								<button class="button-9" role="button">Sign-up</button>
+							</a>
+						</div>
+					}
+				</div>
+			</nav>
+			<script>
+				n = new Date();
+				y = n.getFullYear();
+				m = ("0" + (n.getMonth() + 1)).slice(-2);
+				d = ("0" + n.getDate()).slice(-2);
+				document.getElementById("date").href = "/calendar/day/" + y + "" + m + "" + d;
+			</script>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	</div>
+	</div>
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2024 - CaloriesManagementWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

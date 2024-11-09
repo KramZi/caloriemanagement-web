@@ -1,0 +1,49 @@
+﻿@model Day_User
+
+@{
+    ViewData["Title"] = "Today's Management";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/day.css" />
+</head>
+<body>
+    <div class="main-content">
+        @if (!User.Identity.IsAuthenticated) {
+            <text>Please log in to be able to manage your calories</text>
+        }else if(Model.NoDayWarning == true) {
+            <text>This date is out of limits</text>
+        } else {
+            <h3>@Model.Date.ToString().Substring(6, 2).@Model.Date.ToString().Substring(4, 2).@Model.Date.ToString().Substring(0, 4)</h3>
+            <hr>
+            <text>You have gained @Model.GainedCalories calories today</text>
+            @if (ViewBag.DailyCalories - Model.GainedCalories >= 0) {
+                <text>, @(ViewBag.DailyCalories - Model.GainedCalories) calories left until the daily norm</text>
+                <br>
+                <br>
+            } else {
+                <text>, you exceeded your daily norm by @(Model.GainedCalories - ViewBag.DailyCalories) calories</text>
+                <br>
+                <br>
+            }
+            @using (Html.BeginForm("Day", "Calendar", FormMethod.Post)) {
+                <div style="align-items: center;display: flex;" class="gained-form">
+                    Add amount of gained calories:
+                    <input type="number" id="gainedCalories" name="gainedCalories" autocomplete="off" data-input-field="" step="any" min="0" max="99999999" value="" class="uc_calculator size_5">
+                    <button type="submit" class="button-22" role="button" name="submitButton" value="+">+</button>
+                    <button type="submit" class="button-22" role="button" name="submitButton" value="-">-</button>
+                </div>
+            }
+            <br>
+            <div class="dailyCalories">
+                Your current daily norm is @ViewBag.DailyCalories calories
+                You can change the norm <a href="/norm">here</a>
+            </div>
+        }
+    </div>
+</body>
+</html>
