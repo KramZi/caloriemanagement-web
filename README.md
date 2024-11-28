@@ -1,1 +1,1 @@
-# caloriesmanagement-web
+# caloriemanagement-web
