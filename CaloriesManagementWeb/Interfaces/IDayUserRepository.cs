@@ -1,18 +1,18 @@
 ﻿using CaloriesManagementWeb.Models;
 
-namespace CaloriesManagementWeb.Interfaces {
-    public interface IDayUserRepository {
+namespace CaloriesManagementWeb.Interfaces
+{
+    public interface IDayUserRepository
+    {
 
-        public IQueryable<Day_User?> GetByDate(int? date);
+        IQueryable<Day_User?> GetByDate(int? date);
 
-        public Day_User? GetByDateAndUserId(int? date, string? userId);
+        Task<Day_User?> GetByDateAndUserIdAsync(int? date, string? userId);
 
-        public bool Add(Day_User day_user);
+        Task<bool> AddAsync(Day_User dayUser);
 
-        public bool Delete(Day_User day_user);
+        Task<bool> UpdateAsync(Day_User dayUser);
 
-        public bool Update(Day_User day_user);
-
-        public bool Save();
+        Task<bool> DeleteAsync(Day_User dayUser);
     }
 }

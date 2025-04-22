@@ -3,41 +3,51 @@ using CaloriesManagementWeb.Interfaces;
 using CaloriesManagementWeb.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloriesManagementWeb.Repository {
-    public class DayUserRepository : IDayUserRepository {
+namespace CaloriesManagementWeb.Repository
+{
+    public class DayUserRepository : IDayUserRepository
+    {
 
         ApplicationDbContext _context;
 
-        public DayUserRepository(ApplicationDbContext context) {
+        public DayUserRepository(ApplicationDbContext context)
+        {
             _context = context;
         }
 
-        public IQueryable<Day_User?> GetByDate(int? date) {
+        public IQueryable<Day_User?> GetByDate(int? date)
+        {
             return _context.Day_User.Where(d => d.Date == date);
         }
 
-        public Day_User? GetByDateAndUserId(int? date, string? userId) {
-            return this.GetByDate(date).Where(d => d.UserId == userId).FirstOrDefault();
+        public async Task<Day_User?> GetByDateAndUserIdAsync(int? date, string? userId)
+        {
+            return await GetByDate(date)
+                .Where(d => d.UserId == userId)
+                .FirstOrDefaultAsync();
         }
 
-        public bool Add(Day_User day_user) {
-            _context.Add(day_user);
-            return Save();
+        public async Task<bool> AddAsync(Day_User dayUser)
+        {
+            await _context.AddAsync(dayUser);
+            return await SaveChangesAsync();
         }
 
-        public bool Update(Day_User day_user) {
-            _context.Update(day_user);
-            return Save();
+        public async Task<bool> UpdateAsync(Day_User dayUser)
+        {
+            _context.Update(dayUser);
+            return await SaveChangesAsync();
         }
 
-        public bool Delete(Day_User day_user) {
-            _context.Remove(day_user);
-            return Save();
+        public async Task<bool> DeleteAsync(Day_User dayUser)
+        {
+            _context.Remove(dayUser);
+            return await SaveChangesAsync();
         }
 
-        public bool Save() {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+        private async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
         }
     }
 }

@@ -3,27 +3,32 @@ using CaloriesManagementWeb.Interfaces;
 using CaloriesManagementWeb.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloriesManagementWeb.Repository {
-    public class UserRepository : IUserRepository {
+namespace CaloriesManagementWeb.Repository
+{
+    public class UserRepository : IUserRepository
+    {
 
         ApplicationDbContext _context;
 
-        public UserRepository(ApplicationDbContext context) {
+        public UserRepository(ApplicationDbContext context)
+        {
             _context = context;
         }
 
-        public User? GetById(string? id) {
-            return _context.User.Find(id);
+        public async Task<User?> GetByIdAsync(string id)
+        {
+            return await _context.User.FindAsync(id);
         }
 
-        public bool Update(User user) {
+        public async Task<bool> UpdateAsync(User user)
+        {
             _context.Update(user);
-            return Save();
+            return await SaveChangesAsync();
         }
 
-        public bool Save() {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+        private async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
         }
     }
 }

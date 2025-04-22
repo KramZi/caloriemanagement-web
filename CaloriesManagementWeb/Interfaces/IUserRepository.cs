@@ -1,12 +1,11 @@
 ﻿using CaloriesManagementWeb.Models;
 
-namespace CaloriesManagementWeb.Interfaces {
-    public interface IUserRepository {
+namespace CaloriesManagementWeb.Interfaces
+{
+    public interface IUserRepository
+    {
+        Task<User?> GetByIdAsync(string id);
 
-        public User? GetById(string? id);
-
-        public bool Update(User user);
-
-        public bool Save();
+        Task<bool> UpdateAsync(User user);
     }
 }

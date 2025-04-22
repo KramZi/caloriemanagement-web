@@ -4,16 +4,22 @@ using CaloriesManagementWeb.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloriesManagementWeb.Data {
-    public class Seed {
-        public static void SeedData(IApplicationBuilder applicationBuilder) {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
+namespace CaloriesManagementWeb.Data
+{
+    public class Seed
+    {
+        public static void SeedData(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                using (var transaction = context.Database.BeginTransaction()) {
+                using (var transaction = context.Database.BeginTransaction())
+                {
 
                     context.Database.EnsureCreated();
 
-                    if (!context.Day_User.Any()) {
+                    if (!context.Day_User.Any())
+                    {
                         context.Day_User.AddRange(new List<Day_User>()
                         {
                         new Day_User()
@@ -43,8 +49,10 @@ namespace CaloriesManagementWeb.Data {
             }
         }
 
-        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder) {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) {
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
                 //Roles
                 var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -58,8 +66,10 @@ namespace CaloriesManagementWeb.Data {
                 string adminUserEmail = "teddysmithdeveloper@gmail.com";
 
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
-                if (adminUser == null) {
-                    var newAdminUser = new User() {
+                if (adminUser == null)
+                {
+                    var newAdminUser = new User()
+                    {
                         UserName = "teddysmithdev",
                         Email = adminUserEmail,
                         EmailConfirmed = true,
@@ -71,8 +81,10 @@ namespace CaloriesManagementWeb.Data {
                 string appUserEmail = "user@etickets.com";
 
                 var appUser = await userManager.FindByEmailAsync(appUserEmail);
-                if (appUser == null) {
-                    var newAppUser = new User() {
+                if (appUser == null)
+                {
+                    var newAppUser = new User()
+                    {
                         UserName = "app-user",
                         Email = appUserEmail,
                         EmailConfirmed = true,
