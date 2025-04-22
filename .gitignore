@@ -267,3 +267,8 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
