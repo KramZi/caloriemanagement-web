@@ -14,7 +14,7 @@
 <body>
     <div class="main-content">
         @if (!User.Identity.IsAuthenticated) {
-            <text>Please log in to be able to manage your calories</text>
+            <text>Please <a href="/account/login">log in</a> or <a href="/account/register">sign up</a> to be able to manage your calories</text>
         }else if(Model.NoDayWarning == true) {
             <text>This date is out of limits</text>
         } else {
