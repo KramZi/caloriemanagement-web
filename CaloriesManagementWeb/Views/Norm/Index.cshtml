@@ -14,7 +14,7 @@
 <body>
     <div class="main-content">
         @if (!User.Identity.IsAuthenticated) {
-            <text>Please log in to be able to manage your norm</text>
+            <text>Please <a href="/account/login">log in</a> or <a href="/account/register">sign up</a> to be able to manage your norm</text>
         } else {
             <text>Your current daily norm is @Model.DailyCalories calories</text>
             @using (Html.BeginForm("Index", "Norm", FormMethod.Post)) {

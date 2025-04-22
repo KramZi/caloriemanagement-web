@@ -27,7 +27,7 @@
 </head>
 <body>
     @if (!User.Identity.IsAuthenticated) {
-        <h4>Please log in to be able to manage your calories</h4>
+        <h4>Please <a href="/account/login">log in</a> or <a href="/account/register">sign up</a> to be able to manage your calories</h4>
     } else {
         <div id="datepicker" class="calendar"></div>
     }
